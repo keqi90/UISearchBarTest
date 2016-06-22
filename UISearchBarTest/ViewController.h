@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SearchResultViewController.h"
 
 @interface ViewController : UIViewController
 
-
+@property (nonatomic, strong) SearchResultViewController *searchResultVC;
 @end
 

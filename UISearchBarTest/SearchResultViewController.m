@@ -1,13 +1,12 @@
 //
 //  SearchResultViewController.m
-//  SmartHome
+//  UISearchBarTest
 //
-//  Created by issuser on 15/12/14.
-//  Copyright © 2015年 周秋阳. All rights reserved.
+//  Created by issuser on 16/6/15.
+//  Copyright © 2016年 keqi. All rights reserved.
 //
 
 #import "SearchResultViewController.h"
-#import "FriendModel.h"
 
 @interface SearchResultViewController ()
 
@@ -15,57 +14,44 @@
 
 @implementation SearchResultViewController
 
+- (instancetype)init {
+    if (self = [super init]) {
+        self.resultArray = [NSMutableArray array];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _resultArray = [NSMutableArray array];
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.resultArray.count;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (_resultArray.count==0) {
-        return nil;
-    }
+
     static NSString *cellId = @"cellId";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
-    if (!cell) {
+    if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId ] ;
     }
-    FriendModel *fr = _resultArray[indexPath.row];
-    cell.textLabel.text = fr.nikeName;
+    cell.textLabel.text = self.resultArray[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FriendModel *friend = _resultArray[indexPath.row];
+    NSString *str = self.resultArray[indexPath.row];
     
-    if (_DidSelectCellBlock) {
+    if (self.DidSelectCellBlock) {
         
-        self.DidSelectCellBlock(friend);
+        self.DidSelectCellBlock(str);
     }
-    
-    [self removeSearchVCFromParentViewController];
-
 }
 
-- (void)removeSearchVCFromParentViewController
-{
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
-}
 
 @end
